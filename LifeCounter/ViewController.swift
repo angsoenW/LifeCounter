@@ -6,75 +6,112 @@
 //
 
 import UIKit
+var history:[(Int, Int)] = []
 
 class ViewController: UIViewController {
     var userData:[(Int, Int)] = []
-    var history:[(Int, Int)] = []
     
     @IBOutlet weak var EditPlayer: UIStackView!
     @IBOutlet weak var stack: UIStackView!
+    @IBOutlet weak var Hist: UIStackView!
     
-    
+    /*
+     
+
+     */
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
-        for _ in 1...4 {
-            userData.append((userData.count + 1, 20))
-            let newPlayerView = PlayerView()
-            newPlayerView.playerNameLabel.text = "Player \(userData.count)"
-            newPlayerView.translatesAutoresizingMaskIntoConstraints = false
-            let index = self.userData.count - 1
-            let actionMinus3 = UIAction { action in
-                self.userData[index].1 = self.userData[index].1 - 3
-                if self.userData[index].1 <= 0 {
-                    let alert = UIAlertController(title: "Game Over!", message: "Player \(index + 1) has lost!", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-                        for i in 0...self.userData.count - 1 {
-                            let view = self.stack.arrangedSubviews[i] as! ViewController.PlayerView
-                            view.scoreLabel.text = "20"
-                            self.userData[i].1 = 20
+        if stack != nil{
+            for _ in 1...4 {
+                userData.append((userData.count + 1, 20))
+                let newPlayerView = PlayerView()
+                newPlayerView.playerNameLabel.text = "Player \(userData.count)"
+                newPlayerView.translatesAutoresizingMaskIntoConstraints = false
+                let index = self.userData.count - 1
+                let actionMinus3 = UIAction { action in
+                    self.userData[index].1 = self.userData[index].1 - 3
+                    if self.userData[index].1 <= 0 {
+                        let alert = UIAlertController(title: "Game Over!", message: "Player \(index + 1) has lost!", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+                            for i in 0...self.userData.count - 1 {
+                                let view = self.stack.arrangedSubviews[i] as! ViewController.PlayerView
+                                view.scoreLabel.text = "20"
+                                self.userData[i].1 = 20
+                            }
+                            self.EditPlayer.isHidden = false
                         }
-                        self.EditPlayer.isHidden = true
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
                     }
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    newPlayerView.scoreLabel.text = String(self.userData[index].1)
+                    history.append((index, -3))
                 }
-                newPlayerView.scoreLabel.text = String(self.userData[index].1)
-                self.history.append((index, -3))
-            }
-            let actionMinus1 = UIAction { action in
-                self.userData[index].1 = self.userData[index].1 - 1
-                if self.userData[index].1 <= 0 {
-                    let alert = UIAlertController(title: "Game Over!", message: "Player \(index + 1) has lost!", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-                        for i in 0...self.userData.count - 1 {
-                            let view = self.stack.arrangedSubviews[i] as! ViewController.PlayerView
-                            view.scoreLabel.text = "20"
-                            self.userData[i].1 = 20
+                let actionMinus1 = UIAction { action in
+                    self.userData[index].1 = self.userData[index].1 - 1
+                    if self.userData[index].1 <= 0 {
+                        let alert = UIAlertController(title: "Game Over!", message: "Player \(index + 1) has lost!", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+                            for i in 0...self.userData.count - 1 {
+                                let view = self.stack.arrangedSubviews[i] as! ViewController.PlayerView
+                                view.scoreLabel.text = "20"
+                                self.userData[i].1 = 20
+                            }
+                            self.EditPlayer.isHidden = false
                         }
-                        self.EditPlayer.isHidden = true
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
                     }
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    history.append((index, -1))
+                    newPlayerView.scoreLabel.text = String(self.userData[index].1)
                 }
-                self.history.append((index, -1))
-                newPlayerView.scoreLabel.text = String(self.userData[index].1)
+                let actionPlus1 = UIAction { action in
+                    self.userData[index].1 = self.userData[index].1 + 1
+                    newPlayerView.scoreLabel.text = String(self.userData[index].1 + 1)
+                    history.append((index, 1))
+                }
+                let actionPlus3 = UIAction { action in
+                    self.userData[index].1 = self.userData[index].1 + 3
+                    newPlayerView.scoreLabel.text = String(self.userData[index].1 + 3)
+                    history.append((index, 3))
+                }
+                newPlayerView.minusThreeButton.addAction(actionMinus3, for: .touchUpInside)
+                newPlayerView.minusOneButton.addAction(actionMinus1, for: .touchUpInside)
+                newPlayerView.plusOneButton.addAction(actionPlus1, for: .touchUpInside)
+                newPlayerView.plusThreeButton.addAction(actionPlus3, for: .touchUpInside)
+                stack.addArrangedSubview(newPlayerView)
             }
-            let actionPlus1 = UIAction { action in
-                self.userData[index].1 = self.userData[index].1 + 1
-                newPlayerView.scoreLabel.text = String(self.userData[index].1 + 1)
-                self.history.append((index, 1))
+        }
+        if Hist != nil {
+            Hist.arrangedSubviews.forEach { $0.removeFromSuperview() }
+            
+            // Check if the history is empty
+            if history.isEmpty {
+                let noHistoryLabel = UILabel()
+                noHistoryLabel.text = "No history yet."
+                noHistoryLabel.textAlignment = .center
+                noHistoryLabel.font = UIFont.systemFont(ofSize: 16)
+                noHistoryLabel.textColor = .gray // Optional: Make it gray to indicate no data
+                
+                // Add the 'no history' label to the stack view
+                Hist.addArrangedSubview(noHistoryLabel)
+            } else {
+                // Iterate over the history array and create labels
+                for entry in history {
+                    let historyLabel = UILabel()
+                    if entry.1 < 0 {
+                        historyLabel.text = "Player \(entry.0) lost \(entry.1 * -1) life"
+                    } else {
+                        historyLabel.text = "Player \(entry.0) gained \(entry.1) life"
+                    }
+                    
+                    historyLabel.textAlignment = .center
+                    historyLabel.font = UIFont.systemFont(ofSize: 16)
+                    
+                    // Add the label to the stack view
+                    Hist.addArrangedSubview(historyLabel)
+                }
             }
-            let actionPlus3 = UIAction { action in
-                self.userData[index].1 = self.userData[index].1 + 3
-                newPlayerView.scoreLabel.text = String(self.userData[index].1 + 3)
-                self.history.append((index, 3))
-            }
-            newPlayerView.minusThreeButton.addAction(actionMinus3, for: .touchUpInside)
-            newPlayerView.minusOneButton.addAction(actionMinus1, for: .touchUpInside)
-            newPlayerView.plusOneButton.addAction(actionPlus1, for: .touchUpInside)
-            newPlayerView.plusThreeButton.addAction(actionPlus3, for: .touchUpInside)
-            stack.addArrangedSubview(newPlayerView)
         }
         
     }
@@ -100,12 +137,12 @@ class ViewController: UIViewController {
                             view.scoreLabel.text = "20"
                             self.userData[i].1 = 20
                         }
-                        self.EditPlayer.isHidden = true
+                        self.EditPlayer.isHidden = false
                     }
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }
-                self.history.append((index, -3))
+                history.append((index, -3))
                 newPlayerView.scoreLabel.text = String(self.userData[index].1)
             }
             
@@ -119,24 +156,24 @@ class ViewController: UIViewController {
                             view.scoreLabel.text = "20"
                             self.userData[i].1 = 20
                         }
-                        self.EditPlayer.isHidden = true
+                        self.EditPlayer.isHidden = false
                     }
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }
-                self.history.append((index, -1))
+                history.append((index, -1))
                 newPlayerView.scoreLabel.text = String(self.userData[index].1)
             }
             
             let actionPlus1 = UIAction { action in
                 self.userData[index].1 = self.userData[index].1 + 1
-                self.history.append((index, 1))
+                history.append((index, 1))
                 newPlayerView.scoreLabel.text = String(self.userData[index].1 + 1)
             }
             
             let actionPlus3 = UIAction { action in
                 self.userData[index].1 = self.userData[index].1 + 3
-                self.history.append((index, 3))
+                history.append((index, 3))
                 newPlayerView.scoreLabel.text = String(self.userData[index].1 + 3)
             }
             
@@ -152,6 +189,11 @@ class ViewController: UIViewController {
         }
         
     }
+    
+    
+    
+    
+    
     
     @IBAction func Start(_ sender: UIButton) {
         EditPlayer.isHidden = true

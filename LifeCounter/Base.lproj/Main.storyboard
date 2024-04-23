@@ -13,14 +13,14 @@
             <objects>
                 <viewController title="play Screen" id="BYZ-38-t0r" customClass="ViewController" customModule="LifeCounter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="center" axis="vertical" distribution="fillEqually" spacing="10" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qGa-h9-jrG">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="802"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="792"/>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="tJz-pF-msl" userLabel="Edit Player">
-                                <rect key="frame" x="0.0" y="802" width="393" height="50"/>
+                                <rect key="frame" x="0.0" y="792" width="393" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ELF-St-z0O">
                                         <rect key="frame" x="0.0" y="0.0" width="127.66666666666667" height="50"/>
@@ -107,7 +107,7 @@
                                             <color key="baseBackgroundColor" systemColor="systemYellowColor"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="3kd-4E-LeG"/>
+                                            <segue destination="BYZ-38-t0r" kind="presentation" id="3kd-4E-LeG"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d41-mT-Jmz">
@@ -120,7 +120,8 @@
                                             <color key="baseBackgroundColor" systemColor="systemPurpleColor"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <segue destination="wvK-bD-mhH" kind="presentation" modalPresentationStyle="fullScreen" id="UQT-Yp-fZQ"/>
+                                            <action selector="LoadHis:" destination="nJn-QL-aKx" eventType="touchUpInside" id="o4O-z1-RrJ"/>
+                                            <segue destination="3VD-bn-Zq3" kind="presentation" id="daR-4b-Cyv"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -142,40 +143,42 @@
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jzV-gI-6KJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="nJn-QL-aKx" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-1019" y="39"/>
         </scene>
         <!--History-->
-        <scene sceneID="6cy-iw-b5I">
+        <scene sceneID="9nL-PJ-L7M">
             <objects>
-                <viewController title="History" id="wvK-bD-mhH" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="4KZ-uB-Jfo">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                <viewController title="History" id="3VD-bn-Zq3" customClass="ViewController" customModule="LifeCounter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="A0p-RY-l65">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kgR-jE-BgB">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                            <stackView opaque="NO" contentMode="center" axis="vertical" distribution="fillEqually" spacing="10" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yPS-zT-VA9">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                             </stackView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="pQh-Ny-aFI"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <viewLayoutGuide key="safeArea" id="Lbe-Xf-adR"/>
+                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="kgR-jE-BgB" firstAttribute="leading" secondItem="pQh-Ny-aFI" secondAttribute="leading" id="KNO-oL-zXI"/>
-                            <constraint firstItem="kgR-jE-BgB" firstAttribute="top" secondItem="pQh-Ny-aFI" secondAttribute="top" id="PVZ-sc-Bca"/>
-                            <constraint firstItem="pQh-Ny-aFI" firstAttribute="bottom" secondItem="kgR-jE-BgB" secondAttribute="bottom" id="RK4-8F-FQh"/>
-                            <constraint firstItem="pQh-Ny-aFI" firstAttribute="trailing" secondItem="kgR-jE-BgB" secondAttribute="trailing" id="kIc-jF-JRy"/>
+                            <constraint firstItem="yPS-zT-VA9" firstAttribute="leading" secondItem="Lbe-Xf-adR" secondAttribute="leading" id="TY9-ag-oGG"/>
+                            <constraint firstItem="yPS-zT-VA9" firstAttribute="trailing" secondItem="Lbe-Xf-adR" secondAttribute="trailing" id="XKb-hD-lfh"/>
+                            <constraint firstItem="Lbe-Xf-adR" firstAttribute="bottom" secondItem="yPS-zT-VA9" secondAttribute="bottom" id="bQP-XW-Cw2"/>
+                            <constraint firstItem="yPS-zT-VA9" firstAttribute="top" secondItem="Lbe-Xf-adR" secondAttribute="top" id="d8G-Sj-goj"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="ELz-St-l2b"/>
+                    <connections>
+                        <outlet property="Hist" destination="yPS-zT-VA9" id="x2O-F8-eDB"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hJj-Xs-KTW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2R8-iu-8eG" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="450"/>
+            <point key="canvasLocation" x="53" y="409"/>
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemCyanColor">
             <color red="0.1960784314" green="0.67843137249999996" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
